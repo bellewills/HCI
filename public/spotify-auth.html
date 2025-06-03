@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Spotify Auth</title>
+</head>
+<body>
+  <h2>Login with Spotify</h2>
+  <a href="#" id="login">Log In</a>
+
+  <script>
+    const clientId = 'ed27725761544113b8b9ea9bafde8e11';
+    const redirectUri = 'http://127.0.0.1:3000/callback';
+    const scopes = 'user-top-read';
+
+    document.getElementById('login').href =
+      `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${scopes}&redirect_uri=${encodeURIComponent(redirectUri)}`;
+ 
+ 
+ const hash = window.location.hash;
+    const token = new URLSearchParams(hash.substring(1)).get('access_token');
+
+    if (token) {
+    localStorage.setItem('spotifyToken', token);
+     window.location.href = '/';  // go back to the main UI
+    }
+
+ </script>
+</body>
+</html>

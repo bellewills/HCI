@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Spotify Callback</title></head>
+<body>
+  <script>
+    const query = new URLSearchParams(window.location.search);
+    const code = query.get('code');
+
+    if (code) {
+      // Send code to server to exchange for access token
+      fetch('/callback?code=' + code)
+        .then(res => res.text())
+        .then(msg => {
+          console.log(msg);
+          // Redirect or store token if returned from server
+          window.location.href = '/'; // Return to main app
+        });
+    } else {
+      document.body.innerHTML = 'No code found in URL';
+    }
+  </script>
+</body>
+</html>

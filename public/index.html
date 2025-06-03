@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8">
+  <title>ClearView</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js" defer></script>
+  <!-- Google Maps JS API -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFinYk_rMUnLDtwPgody5hgCKD1tI1QnM&callback=initMap">
+  </script>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="videos/bg.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Visor POV Image -->
+  <img src="images/bikepov.png" id="bike-overlay" alt="bike pov">
+
+  <!-- Login Page -->
+  <div id="login-wrapper">
+    <h1 id="brand">ClearView</h1>
+    <div id="login-screen">
+      <h2>Log in</h2>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button onclick="enterUI()">Log in</button>
+    </div>
+    <button onclick="connectSpotify()">Connect Spotify</button>
+  </div>
+
+  <!-- Main Interface -->
+  <div id="main-ui" style="display: none;">
+    <div class="ui-zone">
+
+      <!-- LEFT PANEL -->
+      <div id="left-panel" class="panel">
+        <div class="panel-header" onclick="togglePanel('left-panel')">
+          <span>📱 Messages, Calls & Music</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="panel-body">
+          <p>No new messages</p>
+          <p>Missed Call: <strong>Dad</strong></p>
+          <p>Now Playing: <strong>None</strong></p>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div id="right-panel" class="panel">
+        <div class="panel-header" onclick="togglePanel('right-panel')">
+          <span>🗺️ Navigation</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div id="sensor-readings">
+        <p id="sensor-left">left: -- cm</p>
+        <p id="sensor-right">right: -- cm</p>
+        <p id="sensor-rear">rear: -- cm</p>
+        </div>
+        <div class="panel-body">
+          <input id="origin" placeholder="Start location">
+          <input id="destination" placeholder="Destination">
+          <select id="travel-mode">
+            <option value="WALKING">Walk</option>
+            <option value="BICYCLING">Bike</option>
+            <option value="DRIVING">Drive</option>
+          </select>
+          <button onclick="updateRoute()">Update Route</button>
+          <button onclick="useCurrentLocation()">Use My Location</button>
+          <div id="map" style="width: 100%; height: 300px; border-radius: 12px;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sensor Alerts -->
+    <div id="flash-top" class="flash"></div>
+    <div id="flash-left" class="flash"></div>
+    <div id="flash-right" class="flash"></div>
+  </div>
+
+</body>
+</html>
